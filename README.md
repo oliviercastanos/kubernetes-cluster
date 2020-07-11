@@ -12,7 +12,7 @@ Bien sauvegarder la commande contenant le token qui sera affichée et qui permet
 - install.sh
 - copier la commande contenant le token
 
-## pour déployer les ingresscontrollers
+## pour déployer les Ingress Controllers
 
 - sur le noeud maître lancer ingresscontroller.sh
 
