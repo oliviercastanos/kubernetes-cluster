@@ -15,5 +15,5 @@ yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce
 yum install docker-ce docker-ce-cli containerd.io -y
 systemctl enable docker &&  systemctl start docker
 yum install kubeadm -y
-systemctl enable kubelet &&systemctl start kubelet
+systemctl enable kubelet && systemctl start kubelet
 echo "copy paste kubectl join command from masternode"
