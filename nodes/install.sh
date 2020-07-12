@@ -11,9 +11,11 @@ repo_gpgcheck=1
 gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 EOF
 yum remove docker docker-client docker-client-latest docker-common docker-latest docker-latest-logrotate docker-logrotate docker-engine -y
-yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+curl https://download.docker.com/linux/centos/docker-ce.repo > /etc/yum.repos.d/docker.repo
 yum install docker-ce docker-ce-cli containerd.io -y
 systemctl enable docker &&  systemctl start docker
 yum install kubeadm -y
+swapoff -a
+
 systemctl enable kubelet && systemctl start kubelet
 echo "copy paste kubectl join command from masternode"
