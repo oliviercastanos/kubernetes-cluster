@@ -10,16 +10,16 @@ gpgcheck=1
 repo_gpgcheck=1
 gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 EOF
-yum remove docker docker-client docker-client-latest docker-common docker-latest docker-latest-logrotate docker-logrotate docker-engine -y
+yum remove runc podman docker docker-client docker-client-latest docker-common docker-latest docker-latest-logrotate docker-logrotate docker-engine -y
 curl https://download.docker.com/linux/centos/docker-ce.repo > /etc/yum.repos.d/docker.repo
 yum install docker-ce docker-ce-cli containerd.io -y
 systemctl enable docker &&  systemctl start docker
-yum install kubeadm -y
+yum install     -y kubelet-1.20.0 kubectl-1.20.0 kubeadm-1.20.0 -y
 systemctl enable kubelet && systemctl start kubelet
 swapoff -a
 echo '1' > /proc/sys/net/bridge/bridge-nf-call-iptables
 
-kubeadm init   --v=5
+kubeadm init  --kubernetes-version=v1.20.0   --v=5
 mkdir -p $HOME/.kube
 cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 chown $(id -u):$(id -g) $HOME/.kube/config

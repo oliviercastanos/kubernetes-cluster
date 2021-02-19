@@ -3,17 +3,23 @@ kubectl create deployment nginx --image nginx:alpine -n nginx
 kubectl expose deployment nginx --port=80 -n nginx
 HOST=nginx.castanos.pro
 kubectl create -n nginx -f - <<EOF
-apiVersion: extensions/v1beta1
 kind: Ingress
+apiVersion: networking.k8s.io/v1
 metadata:
   name: nginx
-spec:
+  namespace: nginx
+  annotations:
+    kubernetes.io/ingress.class: haproxy
+  spec:
   rules:
-  - host: $HOST
-    http:
-      paths:
-      - backend:
-          serviceName: nginx
-          servicePort: 80
-        path: /
+    - host: nginx.castanos.pro
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: nginx
+                port:
+                  number: 80
 EOF
