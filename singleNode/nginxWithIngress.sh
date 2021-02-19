@@ -10,7 +10,7 @@ metadata:
   namespace: nginx
   annotations:
     kubernetes.io/ingress.class: haproxy
-  spec:
+spec:
   rules:
     - host: nginx.castanos.pro
       http:
