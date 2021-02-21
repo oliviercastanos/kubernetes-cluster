@@ -16,6 +16,7 @@ spec:
     - http01:
         ingress: {}
 EOF
+HOST=nginx.castanos.pro
 
 
 kubectl apply -n nginx -f - <<EOF
@@ -23,6 +24,7 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   annotations:
+    # add an annotation indicating the issuer to use
     cert-manager.io/cluster-issuer: letsencrypt-prod
   name: nginx
   namespace: nginx
@@ -36,7 +38,8 @@ spec:
           serviceName: nginx
           servicePort: 8080
   tls:
-    secretName: $HOST-cert 
+  - # cert-manager will store the certificate and key in this secret
+    secretName: mysite-cert 
     hosts:
     - $HOST
  
