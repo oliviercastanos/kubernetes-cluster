@@ -5,3 +5,4 @@ helm repo update
 helm install haproxy haproxytech/kubernetes-ingress --set controller.kind=DaemonSet --set controller.daemonset.useHostPort=true  -n ingress-controller
 
 
+helm upgrade --install haproxy haproxytech/kubernetes-ingress --set controller.kind=DaemonSet --set controller.daemonset.useHostPort=true --set-string "controller.config.forwarded-for=true" -n ingress-controller
